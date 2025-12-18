@@ -1,16 +1,59 @@
-# React + Vite
+##BOTÃO QUE SE MOVE##
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Como funciona (conceitos)
 
-Currently, two official plugins are available:
+=> Você usa o useState para controlar a posição (x, y) do botão.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+=> Anexa-se um onMouseMove ou onMouseEnter ao botão.
+Quando o mouse entra ou se move sobre o botão, a função é chamada.
 
-## React Compiler
+=> Dentro da função, usa-se window.innerWidth, window.innerHeight e Math.random() para gerar coordenadas top e left que mantêm o botão dentro da janela visível.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+=> A nova posição aleatória é usada para atualizar o estado,
+e o estilo style={{ top: y, left: x }} do botão é reconfigurado, movendo-o. 
 
-## Expanding the ESLint configuration
+#########################################################################
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+#Tecnologias#
+
+Biblioteca utilizada: REACT (import na primeira linha)
+
+Linguagens utilizadas: JS/JSX, CSS, HTML
+
+"Componentes funcionais": Botão(function: BotaoFugitivo) 
+
+Não utilizei Props mas foi utilizado State/Hooks:
+Foi usado useState para controlar a posição do botão
+
+##########################################################################
+
+#Comportamento#
+
+onMouseMove={handleMouseMove}: sempre que o mouse passa pelo botão, ele calcula uma nova posição aleatória dentro da janela
+
+onClick={() => alert('Você conseguiu clicar!')}: se o usuário conseguir clicar, aparece um alerta
+
+Dentro de style:
+
+position: 'absolute'
+As propriedades top e left passam a controlar a posição do botão na tela
+
+top: position.top 
+Define a distância do topo (em pixels) até o botão.
+O valor vem do estado position do componente (useState), ou seja, muda dinamicamente conforme você chama setPosition.
+
+left: position.left
+Define a distância da esquerda (em pixels) até o botão.
+Também vem do estado position, então o botão “foge” mudando left e top no onMouseMove.
+
+padding: '10px 20px' (Ajuda a deixar o texto longe da borda)
+Define o espaço interno (respiração) do botão:
+10px vertical (topo/baixo)
+20px horizontal (esquerda/direita)
+
+cursor: 'pointer'
+Troca o cursor para a mãozinha quando passa por cima do botão indicando que é clicável.
+
+transition: 'all 0.2s ease-out'
+Responsável pela animação
+Qualquer mudança de estilo (como top, left, opacity, etc.) não acontece de forma instantânea, mas com uma animação curta e suave.
